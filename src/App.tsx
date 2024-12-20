@@ -1,21 +1,29 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
-import TaskInput from './components/TaskInput';
-import TaskList from './components/TaskList';
-import Filters from './components/Filters';
-import useLocalStorage from "./hooks/useLocalStorage.ts";
+import TodoList from './components/TodoList';
+import AddTodo from './components/AddTodo';
+import { TodoProvider } from './context/TodoContext';
+import './styles/main.css';
 
-const App = () => {
-    const [tasks, setTasks] = useLocalStorage('tasks', []); // Ключ 'tasks' в localStorage
-    const [filter, setFilter] = useLocalStorage('filter', 'all'); // Храним выбранный фильтр
-
-
+const App: React.FC = () => {
     return (
-        <div className="app">
-            <Header title='TODO List' />
-            <TaskInput tasks={tasks} setTasks={setTasks} />
-            <Filters filter={filter} setFilter={setFilter} />
-            <TaskList tasks={tasks} setTasks={setTasks} filter={filter} />
-        </div>
+        <TodoProvider>
+            <Router>
+                <Header />
+                <div className="container">
+                    <AddTodo /> {/* Добавим форму для создания задач */}
+                    <Routes>
+                        {/* Главная страница - все задачи */}
+                        <Route path="/" element={<TodoList filter="all" />} />
+                        {/* Страница с выполненными задачами */}
+                        <Route path="/completed" element={<TodoList filter="completed" />} />
+                        {/* Страница с невыполненными задачами */}
+                        <Route path="/active" element={<TodoList filter="active" />} />
+                    </Routes>
+                </div>
+            </Router>
+        </TodoProvider>
     );
 };
 
