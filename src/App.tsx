@@ -4,10 +4,11 @@ import TaskList from './components/TaskList';
 import Filters from './components/Filters';
 // import useLocalStorage from "./hooks/useLocalStorage.ts";
 import {useState} from "react";
+import {ITask} from "./types/types.ts";
 
 const App = () => {
-    const [tasks, setTasks] = useState([]);
-    const [filter, setFilter] = useState('all');
+    const [tasks, setTasks] = useState<ITask[] | []>([]);
+    const [filter, setFilter] = useState<string>('all');
 
     // const [tasks, setTasks] = useLocalStorage('tasks', []); // Ключ 'tasks' в localStorage
     // const [filter, setFilter] = useLocalStorage('filter', 'all'); // Храним выбранный фильтр

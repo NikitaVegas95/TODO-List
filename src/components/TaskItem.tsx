@@ -1,6 +1,13 @@
-import React from 'react';
+import {ITask} from "../types/types.ts";
 
-const TaskItem = ({ task, tasks, setTasks }) => {
+interface IProps {
+    task: ITask;
+    tasks: ITask[];
+    setTasks: (task: ITask[]) => void;
+}
+
+const TaskItem = ({ task, tasks, setTasks }: IProps) => {
+
     const toggleCompletion = () => {
         setTasks(
             tasks.map((t) =>

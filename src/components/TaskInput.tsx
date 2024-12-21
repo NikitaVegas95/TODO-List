@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import {useState} from 'react';
+import {ITask} from "../types/types.ts";
 
-const TaskInput = ({ tasks, setTasks }) => {
-    const [task, setTask] = useState('');
+interface IProps {
+    tasks: ITask[] | [];
+    setTasks: (task: ITask[]) => void;
+}
+
+const TaskInput = ({ tasks, setTasks }: IProps): JSX.Element => {
+    const [inputValue, setInputValue] = useState<string>('');
 
     const addTask = () => {
-        if (task.trim()) {
-            setTasks([...tasks, { id: Date.now(), text: task, completed: false }]);
-            setTask('');
+        if (inputValue.trim()) {
+            setTasks([...tasks, { id: Date.now(), text: inputValue, completed: false }]);
+            setInputValue('');
         }
     };
 
@@ -15,8 +21,8 @@ const TaskInput = ({ tasks, setTasks }) => {
             <input
                 type="text"
                 placeholder="Введите задачу..."
-                value={task}
-                onChange={(e) => setTask(e.target.value)}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
             />
             <button onClick={addTask}>Добавить</button>
         </div>

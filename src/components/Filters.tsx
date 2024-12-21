@@ -1,6 +1,9 @@
-import React from 'react';
+interface IProps {
+    filter: string;
+    setFilter: (filter: string) => void;
+}
 
-const Filters = ({ filter, setFilter }) => {
+const Filters = ({ filter, setFilter }: IProps) => {
     return (
         <div className="filters">
             <button
